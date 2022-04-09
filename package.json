@@ -1,0 +1,24 @@
+{
+  "name": "utoapigraphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.12.0",
+    "apollo-server": "^2.25.3",
+    "bcryptjs": "^2.4.3",
+    "graphql": "^14.7.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "prisma": "^3.12.0"
+  }
+}
