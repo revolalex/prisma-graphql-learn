@@ -40,10 +40,19 @@ async function post(parent, args, context, info) {
   }
 
   async function deleteLink(parent, args, context) {
-    const idDeleted= +args.id
+    const idToDeleted= +args.id
     return await context.prisma.link.delete({
-      where: {
-        id: idDeleted
+      where: {id: idToDeleted}
+    })
+  }
+  async function postRisk(parent, args, context, info) {
+    const { userId } = context;
+  
+    return await context.prisma.risk.create({
+      data: {
+        name: args.name,
+        value: +args.value,
+        postedBy: { connect: { id: userId } },
       }
     })
   }
@@ -52,5 +61,6 @@ module.exports = {
     signup,
     login,
     post,
-    deleteLink
+    deleteLink,
+    postRisk
 }

@@ -15,6 +15,7 @@ model User {
   email     String   @unique
   password  String
   links     Link[]
+  risk      Risk[]     
 }
 
 // Data model: Here, we have written out our Link as a model.
@@ -23,6 +24,14 @@ model Link {
   createdAt   DateTime @default(now())
   description String
   url         String
+  postedBy    User?    @relation(fields: [postedById], references: [id])
+  postedById  Int?
+}
+
+model Risk {
+  id          Int      @id @default(autoincrement())
+  name        String
+  value       Int
   postedBy    User?    @relation(fields: [postedById], references: [id])
   postedById  Int?
 }

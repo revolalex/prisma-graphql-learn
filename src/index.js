@@ -6,6 +6,7 @@ const { getUserId } = require('./utils');
 const Query = require('./resolvers/Query')
 const User = require('./resolvers/User')
 const Link = require('./resolvers/Link')
+const Risk = require('./resolvers/Risk')
 const Mutation = require('./resolvers/Mutation')
 
 const prisma = new PrismaClient()
@@ -15,7 +16,8 @@ const resolvers = {
     Query,
     User,
     Mutation,
-    Link
+    Link,
+    Risk
   }
 
 const server = new ApolloServer({

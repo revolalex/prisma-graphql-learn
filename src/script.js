@@ -4,7 +4,6 @@ const { PrismaClient } = require("@prisma/client")
 // Instantiate PrismaClient.
 const prisma = new PrismaClient()
 
-
 // Define an async function called main to send queries to the database. 
 // You will write all your queries inside this function.
 async function main() {
