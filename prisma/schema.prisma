@@ -18,7 +18,6 @@ model User {
   risk      Risk[]     
 }
 
-// Data model: Here, we have written out our Link as a model.
 model Link {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())

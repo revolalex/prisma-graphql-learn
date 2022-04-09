@@ -1,5 +1,4 @@
 type Query {
-  info: String!
   links: [Link!]!
   getUser: [User!]!
   getRisk: [Risk!]!
@@ -7,9 +6,12 @@ type Query {
 }
 
 type Mutation {
-  post(url: String!, description: String!): Link!
-  postRisk(name: String!, value: String!): Risk!
+  postLink(url: String!, description: String!): Link!
+  editLink(id: ID!, url: String!, description: String!): Link!
   deleteLink(id: ID!): Link!
+  postRisk(name: String!, value: Int!): Risk!
+  editRisk(id: ID!, name: String!, value: Int!): Risk!
+  deleteRisk(id: ID!): Risk!
   # protect with token AuthPayload
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
