@@ -153,7 +153,7 @@ Project is:  _Finish_
 
 
 
-
+###### inspired by: https://www.howtographql.com/graphql-js/2-a-simple-query/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
