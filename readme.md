@@ -61,24 +61,24 @@ Have a look to your databes using prisma studio:
 * jsonwebtoken 
 * graphQl
 
-## Prisma:
+## Prisma
 #### Next-generation Node.js and TypeScript ORM (Object Relational Mapping).
 Prisma helps app developers build faster and make fewer errors with an open source database toolkit for PostgreSQL, MySQL, SQL Server, SQLite and MongoDB 
 
 <a href="https://www.prisma.io/">documenation</a>
 
-#### What is Prisma:
+#### What is Prisma
 To be short prisma is use to send queries to our database
 - Prisma Client: Auto-generated and type-safe query builder for Node.js & TypeScript
 - Prisma Migrate: Migration system
 - Prisma Studio: GUI to view and edit data in your database
 
-#### Data model you can read:
+#### Data model you can read
 Central to Prisma is the schema - a declarative way to define your app's data models and their relations that's human-readable. 
 
 <img width="671" alt="Capture d’écran 2022-04-10 à 10 54 03" src="https://user-images.githubusercontent.com/56839789/162610557-9f48623d-a901-492e-8767-81245a893201.png">
 
-## Model Prisma:
+## Model Prisma
 
 ```js
 model User {
@@ -88,7 +88,7 @@ model User {
 }
 ```
 
-## Model GraphQl:
+## Model GraphQl
 
 ```js
 type User {
@@ -101,15 +101,15 @@ type User {
 
 
 ## Apollo server
-#### What is apollo server:
+#### What is apollo server
 Apollo Server is an open-source, GraphQL server that's compatible with any GraphQL client, It's the best way to build a production-ready, self-documenting GraphQL API that can use data from any source.
 
-#### What for:
+#### What for
 - A stand-alone GraphQL server, including in a serverless environment
 - An add-on to your application's existing Node.js middleware (such as Express or Fastify)
 - A gateway for a federated graph
 
-#### What he provide:
+#### What he provide
 - Straightforward setup, so your client developers can start fetching data quickly
 - Incremental adoption, allowing you to add features as they're needed
 - Universal compatibility with any data source, any build tool, and any GraphQL client
