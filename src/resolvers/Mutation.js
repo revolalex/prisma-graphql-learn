@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
+// USER PART
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10)
   const user = await context.prisma.user.create({ data: { ...args, password } })
@@ -27,6 +28,7 @@ async function login(parent, args, context, info) {
     user,
   }
 }
+// LINK PARTS
 async function postLink(parent, args, context, info) {
   const { userId } = context;
 
@@ -39,14 +41,14 @@ async function postLink(parent, args, context, info) {
   })
 }
 async function editLink(parent, args, context, info) {
-  const linkId =+args.id
-  const newData ={
+  const linkId = +args.id
+  const newData = {
     id: linkId,
     url: args.url,
     description: args.description,
   }
   return await context.prisma.link.update({
-    where: {id: linkId},
+    where: { id: linkId },
     data: newData,
   })
 }
@@ -57,12 +59,8 @@ async function deleteLink(parent, args, context) {
     where: { id: idToDeleted }
   })
 }
-async function deleteRisk(parent, args, context) {
-  const idToDeleted = +args.id
-  return await context.prisma.risk.delete({
-    where: { id: idToDeleted }
-  })
-}
+
+// RISK PARTS
 async function postRisk(parent, args, context, info) {
   const { userId } = context;
 
@@ -86,6 +84,51 @@ async function editRisk(parent, args, context, info) {
     data: newData,
   })
 }
+async function deleteRisk(parent, args, context) {
+  const idToDeleted = +args.id
+  return await context.prisma.risk.delete({
+    where: { id: idToDeleted }
+  })
+}
+
+// DEFENSE PROFILE PARTS
+async function postDefenseProfile(parent, args, context, info) {
+  const { userId } = context;
+  console.log(args)
+  if (args.level === 'LOW' || "MEDIUM" || "HIGH") {
+    return await context.prisma.defenseProfile.create({
+      data: {
+        name: args.name,
+        level: args.level,
+        postedBy: { connect: { id: userId } },
+      }
+    })
+  } else {
+    throw new Error('Level must be LOW, MEDIUM or HIGH')
+  }
+}
+async function editDefenseProfile(parent, args, context, info) {
+  if (args.level === 'LOW' || "MEDIUM" || "HIGH") {
+    const defenseProfileId = +args.id
+    const newData = {
+      id: defenseProfileId,
+      name: args.name,
+      level: args.level,
+    }
+    return await context.prisma.defenseProfile.update({
+      where: { id: defenseProfileId },
+      data: newData,
+    })
+  } else {
+    throw new Error('Level must be LOW, MEDIUM or HIGH')
+  }
+}
+async function deleteDefenseProfile(parent, args, context) {
+  const idToDeleted = +args.id
+  return await context.prisma.defenseProfile.delete({
+    where: { id: idToDeleted }
+  })
+}
 
 module.exports = {
   // user
@@ -98,5 +141,9 @@ module.exports = {
   // risk
   postRisk,
   editRisk,
-  deleteRisk
+  deleteRisk,
+  // defense Profile
+  postDefenseProfile,
+  editDefenseProfile,
+  deleteDefenseProfile
 }

@@ -1,19 +1,31 @@
+// LINKS
 function links(parent, args, context) {
   return context.prisma.link.findMany()
 }
-function getUser(parent, args, context) {
+// USER
+function getUsers(parent, args, context) {
   return context.prisma.user.findMany()
 }
-function getRisk(parent, args, context) {
+// RISK
+function getRisks(parent, args, context) {
   return context.prisma.risk.findMany()
 }
-function getRiskById(parent, args, context) {
+function getRisk(parent, args, context) {
   return context.prisma.risk.findUnique({ where: { id: +args.id } })
+}
+// DEFENSE PROFILE
+function getDefenseProfile(parent, args, context) {
+  return context.prisma.defenseProfile.findUnique({ where: { id: +args.id } })
+}
+function getDefenseProfiles(parent, args, context) {
+  return context.prisma.defenseProfile.findMany()
 }
 
 module.exports = {
   links,
-  getUser,
+  getUsers,
+  getRisks,
   getRisk,
-  getRiskById
+  getDefenseProfile,
+  getDefenseProfiles
 }

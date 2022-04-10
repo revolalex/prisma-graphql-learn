@@ -8,6 +8,7 @@ const User = require('./resolvers/User')
 const Link = require('./resolvers/Link')
 const Risk = require('./resolvers/Risk')
 const Mutation = require('./resolvers/Mutation')
+const DefenseProfile = require('./resolvers/DefenseProfile')
 
 const prisma = new PrismaClient()
 
@@ -17,7 +18,8 @@ const resolvers = {
     User,
     Mutation,
     Link,
-    Risk
+    Risk,
+    DefenseProfile
   }
 
 const server = new ApolloServer({
@@ -40,5 +42,5 @@ const server = new ApolloServer({
 })
 
 server.listen().then(({ url }) =>
-    console.log(`Server is running on ${url}`)
+    console.log(`🚀 Server is running on ${url}`)
 );

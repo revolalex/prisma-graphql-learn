@@ -1,26 +1,34 @@
 type Query {
   links: [Link!]!
-  getUser: [User!]!
-  getRisk: [Risk!]!
-  getRiskById(id: ID!): Risk!
-}
-
-type Mutation {
-  postLink(url: String!, description: String!): Link!
-  editLink(id: ID!, url: String!, description: String!): Link!
-  deleteLink(id: ID!): Link!
-  postRisk(name: String!, value: Int!): Risk!
-  editRisk(id: ID!, name: String!, value: Int!): Risk!
-  deleteRisk(id: ID!): Risk!
-  # protect with token AuthPayload
-  signup(email: String!, password: String!, name: String!): AuthPayload
-  login(email: String!, password: String!): AuthPayload
-  
+  getUsers: [User!]!
+  getRisks: [Risk!]!
+  getRisk(id: ID!): Risk!
+  getDefenseProfile(id: ID!): DefenseProfile!
+  getDefenseProfiles: [DefenseProfile!]!
 }
 
 type AuthPayload {
   token: String
   user: User
+}
+
+type Mutation {
+  # link
+  postLink(url: String!, description: String!): Link!
+  editLink(id: ID!, url: String!, description: String!): Link!
+  deleteLink(id: ID!): Link!
+  # risk
+  postRisk(name: String!, value: Int!): Risk!
+  editRisk(id: ID!, name: String!, value: Int!): Risk!
+  deleteRisk(id: ID!): Risk!
+  # user login
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  # defense profile
+  postDefenseProfile(name: String!, level: String!): DefenseProfile!
+  editDefenseProfile(id: ID!, name: String!, level: String!): DefenseProfile!
+  deleteDefenseProfile(id: ID!): DefenseProfile!
+  
 }
 
 type User {
@@ -29,6 +37,14 @@ type User {
   email: String!
   links: [Link!]!
   risk: [Risk!]!
+  DefenseProfile: [DefenseProfile!]!
+}
+
+type DefenseProfile {
+  id: ID!
+  name: String!
+  level: String!
+  postedBy: User
 }
 
 type Risk {

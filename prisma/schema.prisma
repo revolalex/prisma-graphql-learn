@@ -15,7 +15,17 @@ model User {
   email     String   @unique
   password  String
   links     Link[]
-  risk      Risk[]     
+  risk      Risk[]  
+  defenseProfile DefenseProfile[]   
+}
+
+
+model DefenseProfile {
+  id          Int      @id @default(autoincrement())
+  name        String
+  level       String
+  postedBy    User?    @relation(fields: [postedById], references: [id])
+  postedById  Int?
 }
 
 model Link {
