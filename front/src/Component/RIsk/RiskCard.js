@@ -5,22 +5,32 @@ const RiskCard = () => {
 
     const GETRISKS = gql`
     query{
-    getRisks{
-      id,
-      name,
-      value, 
-      postedBy{
-        id,
-        name,
-        email
-      }
-    }
+        getRisks{
+            id,
+            name,
+            value, 
+            postedBy{id,name,email}
+        }
     }`;
-    const { loading, error, data } = useQuery(GETRISKS);
+    const { loading, data } = useQuery(GETRISKS);
     const style = { color: 'blue' }
 
+    // FIXME FOR LATER ADD A SELECT TO FILTER THE CARD BY OWNER
+    
+    // const getNameForSelect = () => {
+    //     const arrayOfName = data?.getRisks.map(el => el.postedBy.name)
+    //     const uniq = [...new Set(arrayOfName)]
+    //     return uniq
+    // }
+    // <Form.Select aria-label="Default select example">
+    //     <option>Open this select menu</option>
+    //     <option value="1">One</option>
+    //     <option value="2">Two</option>
+    //     <option value="3">Three</option>
+    // </Form.Select>
+
     return (
-        <div style={{paddingBottom:"100px"}}>
+        <div style={{ paddingBottom: "100px" }}>
             <Container>
                 <h1>Risk Card</h1>
                 {loading && <span>Loading</span>}

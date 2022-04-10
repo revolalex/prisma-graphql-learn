@@ -3,15 +3,16 @@ import MyNavbar from "../Component/Navbar/MyNabar";
 import { Form, Button } from "react-bootstrap";
 import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateRisk = () => {
+    
 
     const POSTRISK = gql`
-      mutation postRisk($name: String!, $value: String!) {
+      mutation postRisk($name: String!, $value: Int!) {
         postRisk(name: $name, value: $value) {
           name,
           value,
-          id
           postedBy {
             id,
             name,
@@ -31,15 +32,31 @@ const CreateRisk = () => {
     }
 
     const handleValue = (e) => {
-        setValue(e.target.value);
+        setValue(+e.target.value);
     }
+
+    const notify = (text) => {
+        toast.success(text, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
     const handleClick=(e)=>{
         e.preventDefault();
-        
-        console.log(name, value)
-        postRisk({ variables: { name: name, value: value} })
-            .then(res => {console.log(res)})
+        const riskValue = +value
+        postRisk({ variables: { name: name, value: riskValue} })
+            .then(res => {
+                console.log(res)
+                notify("Risk created whith success")
+            })
     }
+    
     return (
         <div className="container-global-custom" style={{ minHeight: "100vh" }}>
             <MyNavbar />

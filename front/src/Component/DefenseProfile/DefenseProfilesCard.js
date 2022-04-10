@@ -16,7 +16,7 @@ const DefenseProfilesCard = () => {
             }
         }        
     }`;
-    const { loading, error, data } = useQuery(GETDEFPROFILE);
+    const { loading, data } = useQuery(GETDEFPROFILE);
     const style = { color: 'blue' }
     return (
         <div>

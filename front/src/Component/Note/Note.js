@@ -1,4 +1,3 @@
-import DefenseProfilesCard from "../DefenseProfile/DefenseProfilesCard";
 import RiskCard from "../RIsk/RiskCard";
 
 const Note = () => {

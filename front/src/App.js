@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DefenseProfil from './Pages/DefenseProfil';
 import CreateRisk from './Pages/CreateRisk';
+import CreateDefenseProfil from './Pages/CreateDefenseProfil';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/risks" element={<NoteView />} />
         <Route path="/defense-profil" element={<DefenseProfil />} />
         <Route path="/risk" element={<CreateRisk />} />
+        <Route path="/post-defense" element={<CreateDefenseProfil />} />
       </Routes>
       <ToastContainer />
     </div>

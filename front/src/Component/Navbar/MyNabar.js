@@ -11,6 +11,9 @@ const MyNavbar = () => {
           <Nav.Link ><Link to="/risks">Risks</Link></Nav.Link>
           <Nav.Link><Link to="/defense-profil">Defense Profil</Link></Nav.Link>
           <Nav.Link><Link to="/risk">Create risk</Link></Nav.Link>
+          <Nav.Link><Link to="/post-defense">Create Defense Profil</Link></Nav.Link>
+
+          
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
