@@ -1,0 +1,10 @@
+.container-global-custom {
+    background-image: linear-gradient(
+      to right bottom,
+      #317ef1,
+      #3884bf,
+      #4f9ec2,
+      #79cee4,
+      #a2f5f9
+    );
+  }
