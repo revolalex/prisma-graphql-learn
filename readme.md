@@ -69,7 +69,7 @@ Have a look to your databes using prisma studio:
 #### Next-generation Node.js and TypeScript ORM (Object Relational Mapping).
 Prisma helps app developers build faster and make fewer errors with an open source database toolkit for PostgreSQL, MySQL, SQL Server, SQLite and MongoDB 
 
-<a href="https://www.prisma.io/" target="_blank">doc</a>
+<a href="https://www.prisma.io/" target="_blank">Doc</a>
 
 #### What is Prisma
 To be short prisma is use to send queries to our database
@@ -108,7 +108,7 @@ type User {
 #### What is apollo server
 Apollo Server is an open-source, GraphQL server that's compatible with any GraphQL client, It's the best way to build a production-ready, self-documenting GraphQL API that can use data from any source.
 
-<a href="https://www.apollographql.com/" target="_blank">doc</a>
+<a href="https://www.apollographql.com/" target="_blank">Doc</a>
 
 
 
