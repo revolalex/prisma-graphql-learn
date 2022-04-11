@@ -22,11 +22,12 @@
 * [Commands to know](#commands-to-know)
 * [Querries](#querries)
 * [Mutations](#mutations)
+* [Front](#front-end)
 * [Screenshots](#screenshots)
 * [Contact](#contact)
 
 ## Description
-This project goal was to create an API REST using graphql.
+This project goal was to create an API using graphql.
 To communicate with the DB i use prisma, i also use apollo-server as graphql server. 
 So you have different model:
  - user
@@ -42,12 +43,16 @@ You can create an user,login, create link, a risk, and a defense profil
 ## General info
 
 The Api stack: node.js, express, apollo-server, prisma, graphQl...
+The Front-end stack: react, axios, bootstap...
 
 Clone the repos, then run 
 `npm install`
 
-To run the project: 
+To run the api: 
 `npm run start`
+
+To run the front: 
+`cd front npm run start`
 
 Have a look to your databes using prisma studio: 
 `npx prisma studio`
@@ -170,6 +175,26 @@ mutation {
 #### Post a new link (Request using header token)
 <img width="1196" alt="Capture d’écran 2022-04-09 à 18 08 07" src="https://user-images.githubusercontent.com/56839789/162582025-5afee5e2-924e-426e-998a-7ad30ece9997.png">
 
+## Front End
+The front used react, axios, grapql, react-toastify, reac-bootstrap
+
+With the frond end you have a login interface, then yoiu can visualize, all risk, all defense profil.
+
+You can also create a new risk, and a defense profil.
+
+`cd front`
+
+`npm run start`
+
+#### Technologies:
+-  axios
+-  @appollo/client
+-  grapql 
+-  react-router
+-  react-toastify
+-  bootstrap, react-bootstrap
+
+
 ## Screenshots
 
 Playground graphql => http://localhost:4000/:
@@ -180,15 +205,23 @@ Prisma studio to visualize the DB => http://localhost:5555
 
 <img width="1196" alt="Capture d’écran 2022-04-09 à 17 38 43" src="https://user-images.githubusercontent.com/56839789/162581028-448b5290-9987-416e-8e82-818f25d20766.png">
 
+#### Front-end:
+![front](https://user-images.githubusercontent.com/56839789/162727911-f1a7cfdf-5eda-47bc-84a8-f09ef615ae3d.gif)
+
+
+
+
 ## What I learn, pratice: 
 
-- Database
-- Sever
-- GgraphQL
+- database
+- sever
+- graphQL
 - prisma
 - appollo-server
 - jwt
 - node
+- bootstrap
+- toastify
  
  
 ## Status
