@@ -14,7 +14,7 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Technologies](#technologies-stack)
+* [API stack](#api-stack)
 * [Prisma](#prisma)
 * [Model prisma](#model-prisma)
 * [Model graphql](#model-graphql)
@@ -33,7 +33,7 @@ So you have different model:
  - user
  - risk (with relation to user)
  - defenseProfile (with relation to user)
- - link ((with relation to user)
+ - link (with relation to user)
 
 I also implement authentification using JWT
 
@@ -57,8 +57,7 @@ To run the front:
 Have a look to your databes using prisma studio: 
 `npx prisma studio`
 
-
-## Technologies Stack
+## API Stack
 * node
 * express
 * prisma
@@ -176,9 +175,9 @@ mutation {
 <img width="1196" alt="Capture d’écran 2022-04-09 à 18 08 07" src="https://user-images.githubusercontent.com/56839789/162582025-5afee5e2-924e-426e-998a-7ad30ece9997.png">
 
 ## Front End
-The front used react, axios, grapql, react-toastify, reac-bootstrap
+The front used react, axios, grapql, react-toastify, react-bootstrap...
 
-With the frond end you have a login interface, then yoiu can visualize, all risk, all defense profil.
+With the frond end you have a login interface, then you can visualize, all risk, all defense profil.
 
 You can also create a new risk, and a defense profil.
 
