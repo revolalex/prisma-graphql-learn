@@ -11,6 +11,7 @@ import {
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { setContext } from '@apollo/client/link/context';
+import { createRoot } from 'react-dom/client';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/',

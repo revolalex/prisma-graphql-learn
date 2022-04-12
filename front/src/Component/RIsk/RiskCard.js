@@ -1,8 +1,8 @@
-import { Card, Row, Col, Container } from "react-bootstrap"
+import { Card, Row, Col, Container, Form } from "react-bootstrap"
 import { gql, useQuery } from '@apollo/client';
+import { useEffect, useState } from "react";
 
 const RiskCard = () => {
-
     const GETRISKS = gql`
     query{
         getRisks{
@@ -15,28 +15,43 @@ const RiskCard = () => {
     const { loading, data } = useQuery(GETRISKS);
     const style = { color: 'blue' }
 
-    // FIXME FOR LATER ADD A SELECT TO FILTER THE CARD BY OWNER
-    
-    // const getNameForSelect = () => {
-    //     const arrayOfName = data?.getRisks.map(el => el.postedBy.name)
-    //     const uniq = [...new Set(arrayOfName)]
-    //     return uniq
-    // }
-    // <Form.Select aria-label="Default select example">
-    //     <option>Open this select menu</option>
-    //     <option value="1">One</option>
-    //     <option value="2">Two</option>
-    //     <option value="3">Three</option>
-    // </Form.Select>
+    const [risks, setRisks] = useState([]);
 
+    useEffect(() => {
+        if(data){setRisks(data?.getRisks)}
+        // setRisks(data?.getRisks);
+    }, [])
+
+    const filterName = () => {
+        const names = data?.getRisks.map(el => el.postedBy.name)
+        const uniqueChars = [...new Set(names)];
+        return uniqueChars
+    }
+    const handleSelect = (e) => {
+        const names = filterName()
+        if(!names.includes(e.target.value)){
+            setRisks(data?.getRisks);
+        }else{
+            setRisks(data.getRisks.filter(el => el.postedBy.name === e.target.value))
+        }
+    }
     return (
         <div style={{ paddingBottom: "100px" }}>
             <Container>
                 <h1>Risk Card</h1>
+                <br />
+                <Form.Select aria-label="Choose a owner to filter risk" onChange={handleSelect}>
+                    {filterName().map(el =>
+                        <option value={el}>{el}</option>
+                    )}
+                    <option  value="all">All</option>
+                    <option selected >Choose a filter</option>
+                </Form.Select>
+                <br /> 
                 {loading && <span>Loading</span>}
-                {data &&
+                {risks &&
                     <Row xs={1} md={2} className="g-4">
-                        {data.getRisks.map((el) => (
+                        {risks.map((el) => (
                             <Col>
                                 <Card style={{ backgroundColor: '#FRD' }}>
                                     <Card.Body>

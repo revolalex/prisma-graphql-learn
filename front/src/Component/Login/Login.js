@@ -33,7 +33,21 @@ const Login = () => {
         }
     }`;
 
-    const [login] = useMutation(LOGIN);
+    const [login] = useMutation(LOGIN,{
+        // handle errors
+        onError(err) {
+            const error = `${err}`.split(':').reverse()[0];
+            return toast.error(error, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        },
+    });
     const [signUp] = useMutation(SIGN_UP);
 
     const signUpButtonClick = () => {
@@ -75,8 +89,6 @@ const Login = () => {
         e.preventDefault();
         login({ variables: { email: email, password: password } })
             .then(res => {
-                console.log(res);
-                console.log('res signIn', res.data.login.user.name)
                 if (res.data.login.token) {
                     localStorage.setItem("token", res.data.login.token)
                     localStorage.setItem("userName", res.data.login.user.name)
