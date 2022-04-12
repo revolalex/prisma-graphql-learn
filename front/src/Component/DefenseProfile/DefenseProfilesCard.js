@@ -23,7 +23,8 @@ const DefenseProfilesCard = () => {
     const [defenseProfiles, setDefenseProfiles] = useState([]);
 
     useEffect(() => {
-        setDefenseProfiles(data?.getDefenseProfiles);
+        if (data) { setDefenseProfiles(data?.getDefenseProfiles) }
+        ;
     }, [])
 
     const filterName = () => {
@@ -41,12 +42,13 @@ const DefenseProfilesCard = () => {
     }
     return (
         <div>
-            <Container>
-                <h1>Defense Profil Card</h1>
-                {loading && <span>Loading</span>}
+            <Container style={{width:"70%", margin:"auto"}}>
+                <br/>
+                <h1 style={{textAlign:"center", color:"white"}}>Defense Profil Card</h1>
+                {loading && !data && <span>Loading</span>}
+                <br/>
                 {data && defenseProfiles &&
                     <div>
-                        <br />
                         <Form.Select aria-label="Default select example" onChange={handleSelect}>
                             {filterName().map(el =>
                                 <option value={el}>{el}</option>
@@ -58,21 +60,15 @@ const DefenseProfilesCard = () => {
                         <Row xs={1} md={2} className="g-4">
                             {defenseProfiles.map((el) => (
                                 <Col>
-                                    <Card style={{ backgroundColor: '#FRD' }}>
+                                    <Card>
+                                        <Card.Header as="h5">{el.name}</Card.Header>
                                         <Card.Body>
-                                            <Card.Title>{el.name}</Card.Title>
+                                            <Card.Title>Level de Défense:<span style={style}>{el.level}</span></Card.Title>
                                             <Card.Text>
-                                                <p>Level de Défense:
-                                                    <span style={style}>{el.level}</span>
-                                                </p>
-                                                <p>Propriétaire du profile d défense:
-                                                    <span style={style}>{el.postedBy.name}</span>
-                                                </p>
-                                                <p>Email:
-                                                    <span style={style}>{el.postedBy.email}</span>
-                                                </p>
-
+                                                Propriétaire du profile d défense:
+                                                <span style={style}>{el.postedBy.name}</span>
                                             </Card.Text>
+                                            <Card.Link href="#">{el.postedBy.email}</Card.Link>
                                         </Card.Body>
                                     </Card>
                                 </Col>

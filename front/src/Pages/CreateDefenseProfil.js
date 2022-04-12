@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
 import { toast } from "react-toastify";
+import WaveAnimationComponent from "../Component/Animation/WaveAnimation";
 
 const CreateDefenseProfil = () => {
 
@@ -73,10 +74,11 @@ const CreateDefenseProfil = () => {
 
     return (
         <div className="container-global-custom" style={{ minHeight: "100vh" }}>
+            <WaveAnimationComponent/>
             <MyNavbar />
             <br />
             <Container>
-                <h1>Create Defense Profil</h1>
+                <h1 style={{textAlign:"center", color:"white"}}>Create Defense Profil</h1>
                 <br />
                 <br />
                 <Card style={{ maxWidth: "70%", margin: "auto", padding: "2em" }}>
