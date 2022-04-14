@@ -94,7 +94,6 @@ async function deleteRisk(parent, args, context) {
 // DEFENSE PROFILE PARTS
 async function postDefenseProfile(parent, args, context, info) {
   const { userId } = context;
-  console.log(args)
   if (args.level === 'LOW' || "MEDIUM" || "HIGH") {
     return await context.prisma.defenseProfile.create({
       data: {
