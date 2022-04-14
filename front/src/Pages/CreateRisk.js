@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 import WaveAnimationComponent from "../Component/Animation/WaveAnimation";
 
 const CreateRisk = () => {
-    
-
     const POSTRISK = gql`
       mutation postRisk($name: String!, $value: Int!) {
         postRisk(name: $name, value: $value) {
@@ -21,13 +19,9 @@ const CreateRisk = () => {
         }
       }
     `;
-     const [postRisk] = useMutation(POSTRISK);
-
-    //  postRisk({ variables: { name: name, value: value} })
-    //         .then(res => {})
-
-    const [name, setName] = useState();
-    const [value, setValue] = useState();
+    const [postRisk] = useMutation(POSTRISK);
+    const [name, setName] = useState("");
+    const [value, setValue] = useState("");
     const handleName = (e) => {
         setName(e.target.value);
     }
@@ -48,34 +42,60 @@ const CreateRisk = () => {
         });
     }
 
-    const handleClick=(e)=>{
-        e.preventDefault();
-        const riskValue = +value
-        postRisk({ variables: { name: name, value: riskValue} })
-            .then(res => {
-                console.log(res)
-                notify("Risk created whith success")
-            })
+    const resetInput = () => {
+        setName("");
+        setValue("");
     }
-    
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        if (name === "") {
+            toast.error("Please enter a name", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else if (value === "") {
+            toast.error("Please enter a value", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            const riskValue = +value
+            postRisk({ variables: { name: name, value: riskValue } })
+                .then(res => {notify("Risk created whith success")})
+            resetInput()
+        }
+
+    }
+
     return (
         <div className="container-global-custom" style={{ minHeight: "100vh" }}>
-            <WaveAnimationComponent/>
+            <WaveAnimationComponent />
             <MyNavbar />
-            <br/>
+            <br />
             <Container>
-                <h1 style={{textAlign:"center", color:"white"}}>Create Risk</h1>
-                <br/>
-                <br/>
-                <Card style={{maxWidth:"70%", margin:"auto", padding:"2em"}}>
+                <h1 style={{ textAlign: "center", color: "white" }}>Create Risk</h1>
+                <br />
+                <br />
+                <Card style={{ maxWidth: "70%", margin: "auto", padding: "2em" }}>
                     <Form>
                         <Form.Group className="mb-3">
                             <Form.Label>Nom du risk</Form.Label>
-                            <Form.Control type="name" placeholder="Enter name of the risk" value={name} onChange={handleName}/>
+                            <Form.Control type="name" placeholder="Enter name of the risk" value={name} onChange={handleName} />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Valeur du risk</Form.Label>
-                            <Form.Control type="value" placeholder="Enter Risk value" value={value} onChange={handleValue} />
+                            <Form.Control type="number" placeholder="Enter Risk value" value={value} onChange={handleValue} />
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={handleClick}>
                             Submit

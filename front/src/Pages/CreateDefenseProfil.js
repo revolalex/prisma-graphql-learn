@@ -8,22 +8,12 @@ import WaveAnimationComponent from "../Component/Animation/WaveAnimation";
 
 const CreateDefenseProfil = () => {
 
-
     const POSTRISK = gql`
-    #   mutation postRisk($name: String!, $value: Int!) {
-    #     postRisk(name: $name, value: $value) {
-    #       name,
-    #       value,
-    #       postedBy {
-    #         id,
-    #         name,
-    #       }
-    #     }
-    #   }
     mutation postDefenseProfile($name: String!, $level: String!) {
         postDefenseProfile(name:$name, level:$level) {
             id,
             name,
+            level,
             postedBy{
                 name
             }
@@ -33,11 +23,8 @@ const CreateDefenseProfil = () => {
 
     const [postRisk] = useMutation(POSTRISK);
 
-    //  postRisk({ variables: { name: name, value: value} })
-    //         .then(res => {})
-
-    const [name, setName] = useState();
-    const [level, setLevel] = useState();
+    const [name, setName] = useState("");
+    const [level, setLevel] = useState("");
     const handleName = (e) => {
         setName(e.target.value);
     }
@@ -57,28 +44,49 @@ const CreateDefenseProfil = () => {
             progress: undefined,
         });
     }
-    const resetInput=()=>{
+    const resetInput = () => {
         setName("");
         setLevel("");
     }
 
     const handleClick = (e) => {
         e.preventDefault();
-        postRisk({ variables: { name: name, level: level } })
-            .then(res => {
-                console.log(res)
-                notify("Defense profile created whith success")
-                resetInput()
-            })
+        if (name === "") {
+            toast.error("Please enter a name", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else if (level === "") {
+            toast.error("Please enter a level", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            postRisk({ variables: { name: name, level: level } })
+                .then(res => {
+                    notify("Defense profile created whith success")
+                    resetInput()
+                })
+        }
     }
 
     return (
         <div className="container-global-custom" style={{ minHeight: "100vh" }}>
-            <WaveAnimationComponent/>
+            <WaveAnimationComponent />
             <MyNavbar />
             <br />
             <Container>
-                <h1 style={{textAlign:"center", color:"white"}}>Create Defense Profil</h1>
+                <h1 style={{ textAlign: "center", color: "white" }}>Create Defense Profil</h1>
                 <br />
                 <br />
                 <Card style={{ maxWidth: "70%", margin: "auto", padding: "2em" }}>
@@ -91,7 +99,12 @@ const CreateDefenseProfil = () => {
                             <Form.Label>Level du défense profil</Form.Label>
                             <br />
                             <Form.Text>Must be  LOW | MEDIUM | HIGH</Form.Text>
-                            <Form.Control type="text" placeholder="Enter level" value={level} onChange={handleLevel} />
+                            <Form.Select aria-label="Select a level" onChange={handleLevel}>
+                                <option>Open this select menu</option>
+                                <option value="LOW">LOW</option>
+                                <option value="MEDIUM">MEDIUM</option>
+                                <option value="HIGH">HIGH</option>
+                            </Form.Select>
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={handleClick}>
                             Submit
