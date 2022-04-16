@@ -21,7 +21,21 @@ const CreateDefenseProfil = () => {
     }   
     `;
 
-    const [postRisk] = useMutation(POSTRISK);
+    const [postRisk] = useMutation(POSTRISK, {
+        // handle errors
+        onError(err) {
+            const error = `${err}`.split(':').reverse()[0];
+            return toast.error(error, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        },
+    });
 
     const [name, setName] = useState("");
     const [level, setLevel] = useState("");
@@ -74,7 +88,9 @@ const CreateDefenseProfil = () => {
         } else {
             postRisk({ variables: { name: name, level: level } })
                 .then(res => {
-                    notify("Defense profile created whith success")
+                    if(res.data){
+                        notify("Defense profile created whith success")
+                    }
                     resetInput()
                 })
         }

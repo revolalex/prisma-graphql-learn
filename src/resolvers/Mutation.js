@@ -5,6 +5,10 @@ const { APP_SECRET, getUserId } = require('../utils')
 // USER PART
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10)
+  const roles = ['ADMIN', 'VIEWER', 'STAFF']
+  if(!roles.includes(args.role)) {
+    throw new Error('Set role to ADMIN, VIEWER or STAFF')
+  }
   const user = await context.prisma.user.create({ data: { ...args, password } })
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
   return {

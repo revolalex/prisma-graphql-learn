@@ -19,7 +19,7 @@ const RiskCard = () => {
 
     useEffect(() => {
         if (data) { setRisks(data?.getRisks) }
-    }, [])
+    }, [data])
 
     const filterName = () => {
         const names = data?.getRisks.map(el => el.postedBy.name)

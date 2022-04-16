@@ -13,7 +13,8 @@ const DefenseProfilesCard = () => {
             postedBy{
                 id,
                 name,
-                email
+                email,
+                role,
             }
         }        
     }`;
@@ -40,13 +41,22 @@ const DefenseProfilesCard = () => {
             setDefenseProfiles(data?.getDefenseProfiles.filter(el => el.postedBy.name === e.target.value))
         }
     }
+    const userRole = localStorage.getItem('role');
     return (
         <div>
-            <Container style={{width:"70%", margin:"auto"}}>
-                <br/>
-                <h1 style={{textAlign:"center", color:"white"}}>Defense Profil Card</h1>
-                {loading && !data && <span>Loading</span>}
-                <br/>
+            <Container style={{ width: "70%", margin: "auto" }}>
+                <br />
+                <h1 style={{ textAlign: "center", color: "white" }}>Defense Profil Card</h1>
+                {userRole !== "ADMIN" &&
+                    <span>
+                        <br />
+                        <h6 style={{ textAlign: "center", color: "white" }}>Only admin user have acces to this data</h6>
+                    </span>
+                }
+                {loading && !data &&
+                    <span>Loading</span>
+                }
+                <br />
                 {data && defenseProfiles &&
                     <div>
                         <Form.Select aria-label="Default select example" onChange={handleSelect}>

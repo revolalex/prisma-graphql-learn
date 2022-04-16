@@ -2,6 +2,7 @@ import { Container, Navbar, Nav } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 const MyNavbar = () => {
+  const role = localStorage.getItem('role');
   const userName = localStorage.getItem("userName")
   const id = localStorage.getItem("userId")
   const linkStyle={color:"rgb(13, 200, 249)", textDecoration:"none"}
@@ -22,6 +23,10 @@ const MyNavbar = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Navbar.Text style={userInfoStyle}>
             Id: {id}
+          </Navbar.Text>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Navbar.Text style={userInfoStyle}>
+            Role: {role}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

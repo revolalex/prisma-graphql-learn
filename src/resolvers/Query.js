@@ -6,6 +6,14 @@ function links(parent, args, context) {
 function getUsers(parent, args, context) {
   return context.prisma.user.findMany()
 }
+function getUser(parent, args, context) {
+  return context.prisma.user.findUnique({ where: { id: +args.id } })
+}
+function deleteUser(parent, args, context) {
+  return context.prisma.user.delete({
+    where: { id: +args.id }
+  })
+}
 // RISK
 function getRisks(parent, args, context) {
   return context.prisma.risk.findMany()
@@ -24,6 +32,8 @@ function getDefenseProfiles(parent, args, context) {
 module.exports = {
   links,
   getUsers,
+  getUser,
+  deleteUser,
   getRisks,
   getRisk,
   getDefenseProfile,

@@ -19,9 +19,25 @@ const CreateRisk = () => {
         }
       }
     `;
-    const [postRisk] = useMutation(POSTRISK);
+    const [postRisk] = useMutation(POSTRISK, {
+        // handle errors
+        onError(err) {
+            const error = `${err}`.split(':').reverse()[0];
+            return toast.error(error, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        },
+    });
+
     const [name, setName] = useState("");
     const [value, setValue] = useState("");
+
     const handleName = (e) => {
         setName(e.target.value);
     }
@@ -72,7 +88,12 @@ const CreateRisk = () => {
         } else {
             const riskValue = +value
             postRisk({ variables: { name: name, value: riskValue } })
-                .then(res => {notify("Risk created whith success")})
+                .then(res => {
+                    if (res.data) {
+                        console.log(res)
+                        notify("Risk created whith success")
+                    }
+                })
             resetInput()
         }
 

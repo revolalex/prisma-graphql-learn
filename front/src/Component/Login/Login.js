@@ -8,15 +8,18 @@ import { toast } from 'react-toastify';
 const Login = () => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [role, setRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     let navigate = useNavigate();
 
     const SIGN_UP = gql`
-      mutation signup($name: String!, $password: String!, $email: String!) {
-        signup(name: $name, password: $password, email: $email) {
+      mutation signup($name: String!, $password: String!, $email: String!,  $role: String!) {
+        signup(name: $name, password: $password, email: $email, role: $role) {
           token
           user {
-            id
+              name
+              role
+              id
           }
         }
       }
@@ -29,11 +32,12 @@ const Login = () => {
                 user {
                     id
                     name
+                    role
                 }
         }
     }`;
 
-    const [login] = useMutation(LOGIN,{
+    const [login] = useMutation(LOGIN, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -48,7 +52,20 @@ const Login = () => {
             });
         },
     });
-    const [signUp] = useMutation(SIGN_UP);
+    const [signUp] = useMutation(SIGN_UP, {
+        onError(err) {
+            const error = `${err}`.split(':').reverse()[0];
+            return toast.error(error, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        },
+    });
 
     const signUpButtonClick = () => {
         const container = document.querySelector(".container-login");
@@ -60,6 +77,9 @@ const Login = () => {
     }
     const handlePassword = (e) => {
         setPassword(e.target.value);
+    }
+    const handleRole = (e) => {
+        setRole(e.target.value);
     }
     const handleEmail = (e) => {
         setEmail(e.target.value);
@@ -89,10 +109,12 @@ const Login = () => {
         e.preventDefault();
         login({ variables: { email: email, password: password } })
             .then(res => {
+                console.log(res)
                 if (res.data.login.token) {
                     localStorage.setItem("token", res.data.login.token)
                     localStorage.setItem("userName", res.data.login.user.name)
                     localStorage.setItem("userId", res.data.login.user.id)
+                    localStorage.setItem("role", res.data.login.user.role)
                     resetInputAndState()
                     const push = () => {
                         return navigate("/risks");
@@ -104,11 +126,14 @@ const Login = () => {
     }
     const handleSignUpSubmit = (e) => {
         e.preventDefault();
-        signUp({ variables: { name: username, email: email, password: password } })
+        signUp({ variables: { name: username, email: email, password: password, role: role } })
             .then(res => {
                 if (res.data.signup.token) {
-                    localStorage.setItem("token", res.data.access)
-                    alert(res.data.signup.token)
+                    console.log(res)
+                    localStorage.setItem("token", res.data.signup.token)
+                    localStorage.setItem("userName", res.data.signup.user.name)
+                    localStorage.setItem("userId", res.data.signup.user.id)
+                    localStorage.setItem("role", res.data.signup.user.role)
                     resetInputAndState()
                     const push = () => {
                         return navigate("/risks");
@@ -150,6 +175,14 @@ const Login = () => {
                         <div className="input-field">
                             <i className="fas fa-lock"></i>
                             <input type="password" placeholder="Password" value={password} onChange={handlePassword} required />
+                        </div>
+                        <div className="input-field">
+                            <i className="fas fa-user"></i>
+                            <select name="role" id="select-role" value={role} onChange={handleRole}>
+                                <option selected="selected" value="ADMIN">ADMIN</option>
+                                <option value="VIEWER">VIEWER</option>
+                                <option value="STAFF">STAFF</option>
+                            </select>
                         </div>
                         <input type="submit" className="btn" value="Sign up" />
                     </form>
