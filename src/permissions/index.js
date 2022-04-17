@@ -1,5 +1,5 @@
 const {  shield, rule, and, or  } = require('graphql-shield');
-const { isAdmin, isStaf } = require('./rules');
+const { isAdmin, isStaf, isOwner } = require('./rules');
 // and - allows access only if all sub rules used return true,
 // or - resolves to true if at least one rule passes,
 
@@ -10,7 +10,7 @@ const permissions = shield({
     },
     Mutation: {
         deleteDefenseProfile:  or (isStaf,isAdmin),
- 
+        deleteRisk: isOwner,
     },
 })
 

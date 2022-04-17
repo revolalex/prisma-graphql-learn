@@ -27,9 +27,34 @@ const isViewer = rule()(async (parent, args, context, info) => {
     return userRoleIsViewer
 })
 
+const isOwner = rule()(async (parent, args, context, info) => {
+    // delete risk
+    if (context.body.operationName === "deleteRisk") {
+        const riskDataQ = context.prisma.risk.findUnique({ where: { id: +args.id } })
+        const risk = await riskDataQ
+        if (risk.postedById === context.userId) {
+            return true
+        } else {
+            return false
+        }
+    // delete defense profile    
+    } else if(context.body.operationName === "deleteDefenseProfile") {
+        const defenseProfileDataQ = context.prisma.defenseProfile.findUnique({ where: { id: +args.id } })
+        const defenseProfile = await defenseProfileDataQ
+        if (defenseProfile.postedById === context.userId) {
+            return true
+        } else {
+            return false
+        }
+    }
+    return false
+
+})
+
 module.exports = {
     isAdmin,
     isStaf,
-    isViewer
+    isViewer,
+    isOwner
 };
 
