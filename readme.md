@@ -7,7 +7,6 @@
 ![](https://img.shields.io/badge/made%20with-apollo-blue?logo=apollo).
 
 
-
 # Project Name : Api GraphQl, Prisma, Apollo
 > This project's main goal was to learn new techno.
 
@@ -19,6 +18,7 @@
 * [Model prisma](#model-prisma)
 * [Model graphql](#model-graphql)
 * [Apollo server](#apollo-server)
+* [How Prisma and Apollo fit together](#how-prisma-and-apollo-fit-together)
 * [Commands to know](#commands-to-know)
 * [Querries](#querries)
 * [Mutations](#mutations)
@@ -107,12 +107,11 @@ type User {
 
 
 ## Apollo server
+
 #### What is apollo server
 Apollo Server is an open-source, GraphQL server that's compatible with any GraphQL client, It's the best way to build a production-ready, self-documenting GraphQL API that can use data from any source.
 
 <a href="https://www.apollographql.com/" target="_blank">Doc</a>
-
-
 
 #### What for
 - A stand-alone GraphQL server, including in a serverless environment
@@ -124,6 +123,20 @@ Apollo Server is an open-source, GraphQL server that's compatible with any Graph
 - Incremental adoption, allowing you to add features as they're needed
 - Universal compatibility with any data source, any build tool, and any GraphQL client
 - Production readiness, enabling you to ship features faster
+
+
+## How Prisma and Apollo fit together
+Apollo provides a great ecosystem for building applications with GraphQL. When building GraphQL APIs with Apollo Server against a database, you need to send database queries inside your GraphQL resolvers – that's where Prisma comes in.
+
+
+Prisma is an ORM that is used inside the GraphQL resolvers of your Apollo Server to query your database. It works perfectly with all your favorite tools and libraries from the GraphQL ecosystem. <a href='https://www.prisma.io/graphql' target='_blank'>Learn more about Prisma with GraphQL.</a>
+
+![image](https://user-images.githubusercontent.com/56839789/163709826-e9b4b272-2415-4401-a837-ff4e67ed3a77.png)
+
+<img width="1284" alt="Capture d’écran 2022-04-17 à 12 05 27" src="https://user-images.githubusercontent.com/56839789/163709906-7b79721c-82ee-4a1b-8db6-a71e73ce5545.png">
+
+<a href="https://www.prisma.io/apollo" target="_blank">More Info</a>
+
 
 ## Commands to know
 
@@ -252,6 +265,8 @@ const server = new ApolloServer({
 I project we have a model user, the user can have different role ("ADMIN", "STAFF",, "VIEWER"). So i wanted to restrict the acces to certain request (permissions)
 
 To handle the permission who can acces this query or this mutation, i used <a href="https://www.graphql-shield.com/">graphql-shield</a>
+
+<img width="978" alt="Capture d’écran 2022-04-17 à 12 14 53" src="https://user-images.githubusercontent.com/56839789/163710189-3c1db0dd-2c05-450e-9dd2-a0edad11201f.png">
 
 #### First modify the server
 
