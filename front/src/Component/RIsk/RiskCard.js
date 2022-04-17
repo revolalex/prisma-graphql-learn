@@ -105,7 +105,7 @@ const RiskCard = () => {
         <div style={{ paddingBottom: "100px" }}>
             <Container style={{ width: "70%", margin: "auto" }}>
                 <br />
-                <h1 style={{ textAlign: "center", color: "white" }}>Risk Card</h1>
+                <h1 style={{ textAlign: "center", color: "white" }}>Risk Lists</h1>
                 {loading && <span>Loading</span>}
                 <br />
                 <Form.Select aria-label="Choose a owner to filter risk" onChange={handleSelect}>

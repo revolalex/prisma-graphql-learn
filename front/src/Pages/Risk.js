@@ -3,7 +3,7 @@ import './Risk.css'
 import RiskCard from "../Component/RIsk/RiskCard";
 import WaveAnimationComponent from "../Component/Animation/WaveAnimation";
 
-const NoteView = () => {
+const RiskList = () => {
     return (
         <div className="container-global-custom" style={{ minHeight: "100vh" }}>
             <WaveAnimationComponent/>
@@ -14,4 +14,4 @@ const NoteView = () => {
 
 }
 
-export default NoteView;
+export default RiskList;

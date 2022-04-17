@@ -2,7 +2,6 @@ type Query {
   links: [Link!]!
   getUsers: [User!]!
   getUser(id: ID!): User
-  deleteUser(id: ID!): User
   getRisks: [Risk!]!
   getRisk(id: ID!): Risk!
   getDefenseProfile(id: ID!): DefenseProfile!
@@ -26,6 +25,7 @@ type Mutation {
   # user login
   signup(email: String!, password: String!, name: String!, role:String): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  deleteUser(id: ID!): User!
   # defense profile
   postDefenseProfile(name: String!, level: String!): DefenseProfile!
   editDefenseProfile(id: ID!, name: String!, level: String!): DefenseProfile!

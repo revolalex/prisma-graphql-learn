@@ -32,6 +32,13 @@ async function login(parent, args, context, info) {
     user,
   }
 }
+
+async function deleteUser(parent, args, context) {
+  return context.prisma.user.delete({
+    where: { id: +args.id }
+  })
+}
+
 // LINK PARTS
 async function postLink(parent, args, context, info) {
   const { userId } = context;
@@ -137,6 +144,7 @@ module.exports = {
   // user
   signup,
   login,
+  deleteUser,
   // link
   postLink,
   deleteLink,

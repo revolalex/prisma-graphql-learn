@@ -48,7 +48,6 @@ const isOwner = rule()(async (parent, args, context, info) => {
         }
     }
     return false
-
 })
 
 module.exports = {

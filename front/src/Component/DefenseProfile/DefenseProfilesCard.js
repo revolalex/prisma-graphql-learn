@@ -109,7 +109,7 @@ const DefenseProfilesCard = () => {
         <div>
             <Container style={{ width: "70%", margin: "auto" }}>
                 <br />
-                <h1 style={{ textAlign: "center", color: "white" }}>Defense Profil Card</h1>
+                <h1 style={{ textAlign: "center", color: "white" }}>Defense Profil List</h1>
                 {userRole !== "ADMIN" && userRole !== "STAFF" &&
                     <span>
                         <br />
