@@ -38,6 +38,7 @@ const server = new ApolloServer({
     return {
       ...req,
       prisma,
+      // getting the userId from the token
       userId:
         req && req.headers.authorization
           ? getUserId(req)
