@@ -312,12 +312,14 @@ const { isAdmin, isStaf } = require('./rules');
 // list the permissions for all queries and mutations
 const permissions = shield({
     Query: {
-        // the quey getDefenseProfiles allow only staff or admin role
-        getDefenseProfiles:  or (isStaf,isAdmin),
+        // the quey getDefenseProfiles allow only user with admin role
+        getDefenseProfiles: isAdmin,
     },
-    Mutation: {
- 
-    },
+     Mutation: {
+        // only the user who create the object can delete it
+        deleteDefenseProfile:  isOwner,
+        deleteRisk: isOwner,
+    },,
 })
 
 module.exports = {
@@ -343,19 +345,32 @@ const isAdmin = rule()(async (parent, args, context, info) => {
     return userIsAdmin
 })
 
-const isStaf = rule()(async (parent, args, context, info) => {
-    const userData = context.prisma.user.findUnique({ where: { id: context.userId } })
-    let userRoleIsStaf
-    await userData.then(user => {
-        console.log(user.role)
-        user.role === "STAFF" ? userRoleIsStaf = true : userRoleIsStaf = false
-    })
-    return userRoleIsStaf
+const isOwner = rule()(async (parent, args, context, info) => {
+    // delete risk
+    if (context.body.operationName === "deleteRisk") {
+        const riskDataQ = context.prisma.risk.findUnique({ where: { id: +args.id } })
+        const risk = await riskDataQ
+        if (risk.postedById === context.userId) {
+            return true
+        } else {
+            return false
+        }
+    // delete defense profile    
+    } else if(context.body.operationName === "deleteDefenseProfile") {
+        const defenseProfileDataQ = context.prisma.defenseProfile.findUnique({ where: { id: +args.id } })
+        const defenseProfile = await defenseProfileDataQ
+        if (defenseProfile.postedById === context.userId) {
+            return true
+        } else {
+            return false
+        }
+    }
+    return false
 })
 
 module.exports = {
     isAdmin,
-    isStaf
+    isOwner
 };
 ```
 
