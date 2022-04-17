@@ -9,7 +9,7 @@ const permissions = shield({
         getDefenseProfiles:  or (isStaf,isAdmin),
     },
     Mutation: {
-        deleteDefenseProfile:  or (isStaf,isAdmin),
+        deleteDefenseProfile:  isOwner,
         deleteRisk: isOwner,
     },
 })
