@@ -22,6 +22,7 @@
 * [Commands to know](#commands-to-know)
 * [Querries](#querries)
 * [Mutations](#mutations)
+* [API Middlware](#api-middleware)
 * [Front](#front-end)
 * [Screenshots](#screenshots)
 * [Contact](#contact)
@@ -178,9 +179,110 @@ mutation {
 #### Post a new link (Request using header token)
 <img width="1196" alt="Capture d’écran 2022-04-09 à 18 08 07" src="https://user-images.githubusercontent.com/56839789/162582025-5afee5e2-924e-426e-998a-7ad30ece9997.png">
 
-## Front End
-The front used react, axios, grapql, react-toastify, react-bootstrap...
+## API Middleware
+I project we have a model user, the user can have different role ("ADMIN", "STAFF",, "VIEWER"). So i wanted to restrict the acces to certain request (permissions)
 
+To handle the permission who can acces this query or this mutation, i used <a href="https://www.graphql-shield.com/">graphql-shield</a>
+
+#### First modify the server
+
+```js
+const { ApolloServer, makeExecutableSchema } = require('apollo-server');
+const { applyMiddleware } = require('graphql-middleware');
+const {permissions} = require('./permissions');
+
+// read the schema.graphql file
+const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8')
+
+// schema 
+const schema = makeExecutableSchema({ typeDefs, resolvers })
+
+// add permissions
+const schemaWithPermissions = applyMiddleware(schema, permissions)
+
+const server = new ApolloServer({
+  schema: schemaWithPermissions,
+  context: ({ req }) => {
+    return {
+      ...req,
+      prisma,
+      userId:
+        req && req.headers.authorization
+          ? getUserId(req)
+          : null
+    };
+  }
+})
+```
+
+#### Permissions
+
+Create a Permissions folder then a index.js file inside
+
+```js
+const {  shield, rule, and, or  } = require('graphql-shield');
+const { isAdmin, isStaf } = require('./rules');
+// and - allows access only if all sub rules used return true,
+// or - resolves to true if at least one rule passes,
+
+// list the permissions for all queries and mutations
+const permissions = shield({
+    Query: {
+        // the quey getDefenseProfiles allow only staff or admin role
+        getDefenseProfiles:  or (isStaf,isAdmin),
+    },
+    Mutation: {
+ 
+    },
+})
+
+module.exports = {
+    permissions
+};
+````
+
+
+
+#### Rules
+Now inside Permissions folder create a new file rule.js
+
+```js
+const { rule } = require('graphql-shield');
+
+const isAdmin = rule()(async (parent, args, context, info) => {
+    const userData = context.prisma.user.findUnique({ where: { id: context.userId } })
+    let userIsAdmin
+    await userData.then(user => {
+        console.log(user.role)
+        user.role === "ADMIN" ? userIsAdmin = true : userIsAdmin = false
+    })
+    return userIsAdmin
+})
+
+const isStaf = rule()(async (parent, args, context, info) => {
+    const userData = context.prisma.user.findUnique({ where: { id: context.userId } })
+    let userRoleIsStaf
+    await userData.then(user => {
+        console.log(user.role)
+        user.role === "STAFF" ? userRoleIsStaf = true : userRoleIsStaf = false
+    })
+    return userRoleIsStaf
+})
+
+module.exports = {
+    isAdmin,
+    isStaf
+};
+```
+
+😎 Perfect we can now manage the acces of the api for different user role !! 😎 
+
+
+
+
+## Front End
+
+The front used react, axios, grapql, react-toastify, react-bootstrap...
 With the frond end you have a login interface, then you can visualize, all risk, all defense profil.
 
 You can also create a new risk, and a defense profil.
