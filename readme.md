@@ -22,6 +22,7 @@
 * [Commands to know](#commands-to-know)
 * [Querries](#querries)
 * [Mutations](#mutations)
+* [Authentification](#authentification)
 * [API Middlware](#api-middleware)
 * [Front](#front-end)
 * [Screenshots](#screenshots)
@@ -178,6 +179,74 @@ mutation {
 
 #### Post a new link (Request using header token)
 <img width="1196" alt="Capture d’écran 2022-04-09 à 18 08 07" src="https://user-images.githubusercontent.com/56839789/162582025-5afee5e2-924e-426e-998a-7ad30ece9997.png">
+
+## Authentfication
+Here come the jwt identification
+
+For more detail: <a href="https://www.howtographql.com/graphql-js/6-authentication/" target="_blank">Link</a>
+
+In utils.js file
+
+```js
+const jwt = require('jsonwebtoken');
+const APP_SECRET = 'GraphQL-is-aw3some';
+
+function getTokenPayload(token) {
+  return jwt.verify(token, APP_SECRET);
+}
+// he getUserId function is a helper function that you’ll call in resolvers which 
+// require authentication (such as post). It first retrieves the Authorization header 
+// (which contains the User’s JWT) from the context. It then verifies the JWT 
+// and retrieves the User’s ID from it. Notice that if that process is not successful 
+// for any reason, the function will throw an exception. You can therefore use it to 
+// “protect” the resolvers which require authentication.
+function getUserId(req, authToken) {
+  if (req) {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.replace('Bearer ', '');
+      if (!token) {
+        throw new Error('No token found');
+      }
+      const { userId } = getTokenPayload(token);
+      return userId;
+    }
+  } else if (authToken) {
+    const { userId } = getTokenPayload(authToken);
+    return userId;
+  }
+
+  throw new Error('Not authenticated');
+}
+
+module.exports = {
+  APP_SECRET,
+  getUserId
+};
+
+
+Then in index.js file
+
+```js
+const server = new ApolloServer({
+  schema: schemaWithPermissions,
+  //This will allow your resolvers to read the Authorization header and validate 
+  //if the user who submitted the request is eligible to perform the requested operation.
+  context: ({ req }) => {
+    return {
+      ...req,
+      prisma,
+      // getting the userId from the token
+      userId:
+        req && req.headers.authorization
+          ? getUserId(req)
+          : null
+    };
+  }
+})
+```
+
+
 
 ## API Middleware
 I project we have a model user, the user can have different role ("ADMIN", "STAFF",, "VIEWER"). So i wanted to restrict the acces to certain request (permissions)
