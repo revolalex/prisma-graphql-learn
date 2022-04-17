@@ -22,7 +22,7 @@
 * [Commands to know](#commands-to-know)
 * [Querries](#querries)
 * [Mutations](#mutations)
-* [Authentification](#authentification)
+* [Authentfication token](#authentfication-token)
 * [API Middlware](#api-middleware)
 * [Front](#front-end)
 * [Screenshots](#screenshots)
@@ -162,7 +162,7 @@ query {
 
 ## Mutations
 
-#### Authentification
+#### signup
 ```js
 mutation {
   signup(name: "Alice", email: "alice@prisma.io", password: "graphql") {
@@ -180,7 +180,7 @@ mutation {
 #### Post a new link (Request using header token)
 <img width="1196" alt="Capture d’écran 2022-04-09 à 18 08 07" src="https://user-images.githubusercontent.com/56839789/162582025-5afee5e2-924e-426e-998a-7ad30ece9997.png">
 
-## Authentfication
+## Authentfication token
 Here come the jwt identification
 
 For more detail: <a href="https://www.howtographql.com/graphql-js/6-authentication/" target="_blank">Link</a>
@@ -223,7 +223,7 @@ module.exports = {
   APP_SECRET,
   getUserId
 };
-
+```
 
 Then in index.js file
 
