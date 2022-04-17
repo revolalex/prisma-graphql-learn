@@ -19,6 +19,7 @@
 * [Model prisma](#model-prisma)
 * [Model graphql](#model-graphql)
 * [Apollo server](#apollo-server)
+* [How Prisma and Apollo fit together](#how-prisma-and-apollo-fit-together)
 * [Commands to know](#commands-to-know)
 * [Querries](#querries)
 * [Mutations](#mutations)
@@ -124,6 +125,20 @@ Apollo Server is an open-source, GraphQL server that's compatible with any Graph
 - Incremental adoption, allowing you to add features as they're needed
 - Universal compatibility with any data source, any build tool, and any GraphQL client
 - Production readiness, enabling you to ship features faster
+
+
+## How Prisma and Apollo fit together
+Apollo provides a great ecosystem for building applications with GraphQL. When building GraphQL APIs with Apollo Server against a database, you need to send database queries inside your GraphQL resolvers – that's where Prisma comes in.
+
+
+Prisma is an ORM that is used inside the GraphQL resolvers of your Apollo Server to query your database. It works perfectly with all your favorite tools and libraries from the GraphQL ecosystem. <a href='https://www.prisma.io/graphql' target='_blank'>Learn more about Prisma with GraphQL.</a>
+
+![image](https://user-images.githubusercontent.com/56839789/163709826-e9b4b272-2415-4401-a837-ff4e67ed3a77.png)
+
+<img width="1284" alt="Capture d’écran 2022-04-17 à 12 05 27" src="https://user-images.githubusercontent.com/56839789/163709906-7b79721c-82ee-4a1b-8db6-a71e73ce5545.png">
+
+<a href="https://www.prisma.io/apollo" target="_blank">More Info</a>
+
 
 ## Commands to know
 
