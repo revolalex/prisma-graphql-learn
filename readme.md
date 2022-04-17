@@ -7,7 +7,6 @@
 ![](https://img.shields.io/badge/made%20with-apollo-blue?logo=apollo).
 
 
-
 # Project Name : Api GraphQl, Prisma, Apollo
 > This project's main goal was to learn new techno.
 
@@ -108,12 +107,11 @@ type User {
 
 
 ## Apollo server
+
 #### What is apollo server
 Apollo Server is an open-source, GraphQL server that's compatible with any GraphQL client, It's the best way to build a production-ready, self-documenting GraphQL API that can use data from any source.
 
 <a href="https://www.apollographql.com/" target="_blank">Doc</a>
-
-
 
 #### What for
 - A stand-alone GraphQL server, including in a serverless environment
@@ -267,6 +265,8 @@ const server = new ApolloServer({
 I project we have a model user, the user can have different role ("ADMIN", "STAFF",, "VIEWER"). So i wanted to restrict the acces to certain request (permissions)
 
 To handle the permission who can acces this query or this mutation, i used <a href="https://www.graphql-shield.com/">graphql-shield</a>
+
+<img width="978" alt="Capture d’écran 2022-04-17 à 12 14 53" src="https://user-images.githubusercontent.com/56839789/163710189-3c1db0dd-2c05-450e-9dd2-a0edad11201f.png">
 
 #### First modify the server
 
