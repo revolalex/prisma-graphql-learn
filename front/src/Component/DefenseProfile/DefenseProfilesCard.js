@@ -77,7 +77,7 @@ const DefenseProfilesCard = () => {
         if (!names.includes(e.target.value)) {
             setDefenseProfiles(data?.getDefenseProfiles);
         } else {
-            setDefenseProfiles(data?.getDefenseProfiles.filter(el => el.postedBy.name === e.target.value))
+            setDefenseProfiles(data?.getDefenseProfiles.filter(el => el.postedBy?.name === e.target.value))
         }
     }
     const notify = (text) => {
@@ -103,19 +103,13 @@ const DefenseProfilesCard = () => {
             }
         })
     }
-    const userRole = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
     return (
         <div>
             <Container style={{ width: "70%", margin: "auto" }}>
                 <br />
                 <h1 style={{ textAlign: "center", color: "white" }}>Defense Profil List</h1>
-                {userRole !== "ADMIN" && userRole !== "STAFF" &&
-                    <span>
-                        <br />
-                        <h6 style={{ textAlign: "center", color: "white" }}>Only admin or staff user role have acces to this data</h6>
-                    </span>
-                }
+
                 {loading && !data &&
                     <span>Loading</span>
                 }
@@ -124,19 +118,19 @@ const DefenseProfilesCard = () => {
                     <div>
                         <Form.Select aria-label="Default select example" onChange={handleSelect}>
                             {filterName().map(el =>
-                                <option value={el}>{el}</option>
+                                <option key={el} value={el}>{el}</option>
                             )}
                             <option value={"all"}>All</option>
-                            <option selected >Choose a filter</option>
+                            <option defaultValue >Choose a filter</option>
                         </Form.Select>
                         <br />
                         <Row xs={1} md={2} className="g-4">
                             {defenseProfiles.map((el) => (
-                                <Col>
+                                <Col key={el.id}>
                                     <Card>
                                         <Card.Header as="h5">
                                             {el.name}
-                                            {el.postedBy.id === userId &&
+                                            {el.postedBy?.id === userId &&
                                                 <span style={{ position: "absolute", right: "10px" }}>
                                                     {/* <i class="bi bi-pencil"></i>
                                                     &nbsp; &nbsp; &nbsp; */}
@@ -145,10 +139,17 @@ const DefenseProfilesCard = () => {
                                             }
                                         </Card.Header>
                                         <Card.Body>
-                                            <Card.Title>Level de Défense:<span style={style}>{el.level}</span></Card.Title>
+                                            <Card.Title>Level de défense:<span style={style}>{el.level}</span></Card.Title>
                                             <Card.Text>
-                                                Propriétaire du profile d défense:
-                                                <span style={style}>{el.postedBy.name}</span>
+                                                Propriétaire du profile de défense:
+                                                <span style={style}>{el.postedBy?.name}</span>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                Id du propriétaire
+                                                <span style={style}>{el.postedBy?.id}</span>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <span style={style}>{el.postedBy?.email}</span>
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

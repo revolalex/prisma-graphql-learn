@@ -99,7 +99,6 @@ const RiskCard = () => {
             }
         })
     }
-
     const userId = localStorage.getItem('userId')
     return (
         <div style={{ paddingBottom: "100px" }}>
@@ -110,16 +109,16 @@ const RiskCard = () => {
                 <br />
                 <Form.Select aria-label="Choose a owner to filter risk" onChange={handleSelect}>
                     {filterName().map(el =>
-                        <option value={el}>{el}</option>
+                        <option key={el} value={el}>{el}</option>
                     )}
                     <option value="all">All</option>
-                    <option selected >Choose a filter</option>
+                    <option defaultValue >Choose a filter</option>
                 </Form.Select>
                 <br />
-                {risks &&
+                {risks && data?.getRisks &&
                     <Row xs={1} md={2} className="g-4">
                         {risks.map((el) => (
-                            <Col>
+                            <Col key={el.id}>
                                 <Card>
                                     <Card.Header as="h5">
                                         {el.name}
@@ -134,8 +133,12 @@ const RiskCard = () => {
                                     <Card.Body>
                                         <Card.Title>Level de Défense:<span style={style}>{el.value}</span></Card.Title>
                                         <Card.Text>
-                                            Propriétaire du profile d défense:
+                                            Propriétaire du Risk:
                                             <span style={style}>{el.postedBy.name}</span>
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Id du propriétaire
+                                            <span style={style}>{el.postedBy.id}</span>
                                         </Card.Text>
                                         <Card.Link href="#">{el.postedBy.email}</Card.Link>
                                     </Card.Body>
