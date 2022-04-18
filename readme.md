@@ -362,7 +362,6 @@ const isAdmin = rule()(async (parent, args, context, info) => {
     const userData = context.prisma.user.findUnique({ where: { id: context.userId } })
     let userIsAdmin
     await userData.then(user => {
-        console.log(user.role)
         user.role === "ADMIN" ? userIsAdmin = true : userIsAdmin = false
     })
     return userIsAdmin

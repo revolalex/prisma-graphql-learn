@@ -81,11 +81,8 @@ const UserList = () => {
 
 
     const handleDelete = (e) => {
-        console.log('delete');
         const id = e.target.attributes.value.value
-        console.log(id)
         deleteUser({ variables: { id } }).then((res) => {
-            console.log(res)
             if (res.data) {
                 notify(`User deleted with succes`)
                 refetch()

@@ -100,7 +100,7 @@ const DefenseProfilesCard = () => {
     const handleDelete = (e) => {
         const id = e.target.attributes.value.value
         deleteDefProfile({ variables: { id } }).then((res) => {
-            console.log(res)
+
             if (res.data) {
                 notify(`Defense profile deleted with succes`)
                 refetch()

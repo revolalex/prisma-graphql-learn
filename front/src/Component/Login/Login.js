@@ -127,7 +127,6 @@ const Login = () => {
         }
         login({ variables: { email: email, password: password } })
             .then(res => {
-                console.log(res)
                 if (res.data.login.token) {
                     localStorage.setItem("token", res.data.login.token)
                     localStorage.setItem("userName", res.data.login.user.name)
@@ -159,7 +158,6 @@ const Login = () => {
         signUp({ variables: { name: username, email: email, password: password, role: role } })
             .then(res => {
                 if (res.data.signup.token) {
-                    console.log(res)
                     localStorage.setItem("token", res.data.signup.token)
                     localStorage.setItem("userName", res.data.signup.user.name)
                     localStorage.setItem("userId", res.data.signup.user.id)

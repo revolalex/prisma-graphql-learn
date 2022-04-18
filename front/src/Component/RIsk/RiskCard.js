@@ -94,9 +94,7 @@ const RiskCard = () => {
 
     const handleDelete = (e) => {
         const id = e.target.attributes.value.value
-        console.log(id)
         deleteRisk({ variables: { id } }).then((res) => {
-            console.log(res)
             if (res.data) {
                 notify(`Risk deleted with succes`)
                 refetch()

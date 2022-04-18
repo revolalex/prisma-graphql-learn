@@ -90,7 +90,6 @@ const CreateRisk = () => {
             postRisk({ variables: { name: name, value: riskValue } })
                 .then(res => {
                     if (res.data) {
-                        console.log(res)
                         notify("Risk created whith success")
                     }
                 })
