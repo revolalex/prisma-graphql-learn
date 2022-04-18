@@ -1,4 +1,4 @@
-import { Card, Row, Col, Container, Form } from "react-bootstrap"
+import { Card, Row, Col, Container, Form, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
@@ -13,9 +13,9 @@ const RiskCard = () => {
             postedBy{id,name,email}
         }
     }`;
-    const { loading, data, refetch } = useQuery(GETRISKS,{
-         // handle errors
-         onError(err) {
+    const { loading, data, refetch } = useQuery(GETRISKS, {
+        // handle errors
+        onError(err) {
             const error = `${err}`.split(':').reverse()[0];
             return toast.error(error, {
                 position: "top-center",
@@ -75,7 +75,7 @@ const RiskCard = () => {
             setRisks(data.getRisks.filter(el => el.postedBy.name === e.target.value))
         }
     }
-    
+
     const notify = (text) => {
         toast.success(text, {
             position: "top-center",
@@ -121,13 +121,32 @@ const RiskCard = () => {
                                 <Card>
                                     <Card.Header as="h5">
                                         {el.name}
-                                        {el.postedBy.id === userId &&
-                                            <span style={{ position: "absolute", right: "10px" }}>
-                                                {/* <i className="bi bi-pencil"></i>
+                                        <span style={{ position: "absolute", right: "10px" }}>
+                                            {/* <i class="bi bi-pencil"></i>
                                                     &nbsp; &nbsp; &nbsp; */}
-                                                <i value={el.id} className="bi bi-trash3" onClick={handleDelete}></i>
-                                            </span>
-                                        }
+                                            <OverlayTrigger
+                                                overlay={
+                                                    <Tooltip id="tooltip-disabled">
+                                                        {el.postedBy?.id === userId
+                                                            ? "You can delete it because you are the owner"
+                                                            : <span className="d-inline-block">
+                                                                <i class="bi bi-exclamation-triangle"></i>
+                                                                You can't delete it, you are not the owner, try you will see the request is protect with permissions
+                                                            </span>
+                                                        }
+                                                    </Tooltip>}
+                                            >
+                                                <span className="d-inline-block">
+                                                    <i
+                                                        style={el.postedBy?.id === userId ? { color: "red" } : { fontSize: "12px" }}
+                                                        value={el.id}
+                                                        className="bi bi-trash3"
+                                                        onClick={handleDelete}
+                                                    >
+                                                    </i>
+                                                </span>
+                                            </OverlayTrigger>
+                                        </span>
                                     </Card.Header>
                                     <Card.Body>
                                         <Card.Title>Level de Défense:<span style={style}>{el.value}</span></Card.Title>
