@@ -7,16 +7,16 @@ const MyNavbar = () => {
   const userName = localStorage.getItem("userName")
   const id = localStorage.getItem("userId")
   const linkStyle = { color: "rgb(13, 200, 249)", textDecoration: "none" }
-  const userInfoStyle = { color: "rgb(40 240 191)" }
+  const userInfoStyle = { color: "rgb(40 240 191)"}
   const userRole = localStorage.getItem('role');
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
         <Nav className="me-auto">
           <Link className='myLink' style={linkStyle} to="/risks">Risks</Link>
-          <Link className='myLink' style={linkStyle} to="/defense-profil">Defense Profil</Link>
+          <Link className='myLink' style={linkStyle} to="/defense-profil">Defense</Link>
           <Link className='myLink' style={linkStyle} to="/risk">Create risk</Link>
-          <Link className='myLink' style={linkStyle} to="/post-defense">Create Defense Profil</Link>
+          <Link className='myLink' style={linkStyle} to="/post-defense">Create Defense</Link>
           {userRole === "ADMIN" &&
             <Link className='myLink' style={linkStyle} to="/users">Users List</Link>
           }
