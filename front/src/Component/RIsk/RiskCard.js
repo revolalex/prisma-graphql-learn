@@ -60,6 +60,10 @@ const RiskCard = () => {
     useEffect(() => {
         if (data) { setRisks(data?.getRisks) }
     }, [data])
+    
+    useEffect(() => {
+        refetch()
+    },[])
 
     const filterName = () => {
         const names = data?.getRisks.map(el => el.postedBy.name)
@@ -105,7 +109,9 @@ const RiskCard = () => {
             <Container style={{ width: "70%", margin: "auto" }}>
                 <br />
                 <h1 style={{ textAlign: "center", color: "white" }}>Risk Lists</h1>
-                {loading && <span>Loading</span>}
+                {loading &&
+                    <span>Loading</span>
+                }
                 <br />
                 <Form.Select aria-label="Choose a owner to filter risk" onChange={handleSelect} defaultValue="all">
                     {filterName().map(el =>

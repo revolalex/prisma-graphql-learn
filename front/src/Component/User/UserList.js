@@ -1,4 +1,4 @@
-import { Card, Row, Col, Container, Form } from "react-bootstrap"
+import { Card, Row, Col, Container } from "react-bootstrap"
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
@@ -62,6 +62,10 @@ const UserList = () => {
     useEffect(() => {
         if (data) { setUsers(data?.getUsers) }
     }, [data])
+
+    useEffect(() => {
+        refetch()
+    }, [])
 
     const notify = (text) => {
         toast.success(text, {

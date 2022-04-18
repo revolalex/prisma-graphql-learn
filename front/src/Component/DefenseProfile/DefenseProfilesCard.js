@@ -63,6 +63,10 @@ const DefenseProfilesCard = () => {
     const [defenseProfiles, setDefenseProfiles] = useState([]);
 
     useEffect(() => {
+        refetch()
+    },[])
+
+    useEffect(() => {
         if (data) { setDefenseProfiles(data?.getDefenseProfiles) }
         ;
     }, [data])
