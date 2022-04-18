@@ -432,8 +432,11 @@ Prisma studio to visualize the DB => http://localhost:5555
 <img width="1196" alt="Capture d’écran 2022-04-09 à 17 38 43" src="https://user-images.githubusercontent.com/56839789/162581028-448b5290-9987-416e-8e82-818f25d20766.png">
 
 #### Front-end:
+
 ![front](https://user-images.githubusercontent.com/56839789/162727911-f1a7cfdf-5eda-47bc-84a8-f09ef615ae3d.gif)
 
+
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/56839789/163796780-6c991c85-b3e3-4ca2-b2c5-626e19d096ab.gif)
 
 
 
