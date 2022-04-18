@@ -23,6 +23,7 @@
 * [Querries](#querries)
 * [Mutations](#mutations)
 * [Authentfication token](#authentfication-token)
+* [Delete cascade](#delete-cascade)
 * [API Middlware](#api-middleware)
 * [Front](#front-end)
 * [Screenshots](#screenshots)
@@ -135,7 +136,7 @@ Prisma is an ORM that is used inside the GraphQL resolvers of your Apollo Server
 
 <img width="1284" alt="Capture d’écran 2022-04-17 à 12 05 27" src="https://user-images.githubusercontent.com/56839789/163709906-7b79721c-82ee-4a1b-8db6-a71e73ce5545.png">
 
-<a href="https://www.prisma.io/apollo" target="_blank">More Info</a>
+<a href="https://www.prisma.io/apollo" target="_blank">More Info: Prisma-apollo</a>
 
 
 ## Commands to know
@@ -173,6 +174,7 @@ query {
 }
 ```
 
+
 ## Mutations
 
 #### signup
@@ -192,6 +194,7 @@ mutation {
 
 #### Post a new link (Request using header token)
 <img width="1196" alt="Capture d’écran 2022-04-09 à 18 08 07" src="https://user-images.githubusercontent.com/56839789/162582025-5afee5e2-924e-426e-998a-7ad30ece9997.png">
+
 
 ## Authentfication token
 Here come the jwt identification
@@ -259,12 +262,32 @@ const server = new ApolloServer({
 })
 ```
 
+## Delete cascade
+All defense profile are owned, postedBy an user, so when we delete an user, we want to delete the related defenseProfiles.
+
+To realize this actions i used:
+
+```onDelete```  and also ```onUpdate``` and set them to ```Cascade```
+
+
+```js
+model DefenseProfile {
+  id          Int      @id @default(autoincrement())
+  name        String
+  level       String
+  postedBy    User?    @relation(fields: [postedById], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postedById  Int?
+}
+```
+
 
 
 ## API Middleware
-I project we have a model user, the user can have different role ("ADMIN", "STAFF",, "VIEWER"). So i wanted to restrict the acces to certain request (permissions)
+I project we have a model user, the user can have different role ("ADMIN", "STAFF",, "VIEWER"). 
 
-To handle the permission who can acces this query or this mutation, i used <a href="https://www.graphql-shield.com/">graphql-shield</a>
+So i wanted to restrict the acces to certain request (permissions)
+
+To handle the permission who can acces this query or this mutation, i used <a href="https://www.graphql-shield.com/" target="_blank">graphql-shield</a>
 
 <img width="978" alt="Capture d’écran 2022-04-17 à 12 14 53" src="https://user-images.githubusercontent.com/56839789/163710189-3c1db0dd-2c05-450e-9dd2-a0edad11201f.png">
 
