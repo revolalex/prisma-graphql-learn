@@ -13,8 +13,8 @@ const permissions = shield({
         deleteDefenseProfile:  isOwner,
         deleteRisk: isOwner,
         // VIEWER can't
-        postRisk: and (isStaf, isAdmin),
-        postDefenseProfile: and (isStaf, isAdmin),
+        postRisk: or (isStaf, isAdmin),
+        postDefenseProfile: or (isStaf, isAdmin),
     },
 })
 

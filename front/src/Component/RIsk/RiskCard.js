@@ -107,12 +107,11 @@ const RiskCard = () => {
                 <h1 style={{ textAlign: "center", color: "white" }}>Risk Lists</h1>
                 {loading && <span>Loading</span>}
                 <br />
-                <Form.Select aria-label="Choose a owner to filter risk" onChange={handleSelect}>
+                <Form.Select aria-label="Choose a owner to filter risk" onChange={handleSelect} defaultValue="all">
                     {filterName().map(el =>
                         <option key={el} value={el}>{el}</option>
                     )}
                     <option value="all">All</option>
-                    <option defaultValue >Choose a filter</option>
                 </Form.Select>
                 <br />
                 {risks && data?.getRisks &&
@@ -124,9 +123,9 @@ const RiskCard = () => {
                                         {el.name}
                                         {el.postedBy.id === userId &&
                                             <span style={{ position: "absolute", right: "10px" }}>
-                                                {/* <i class="bi bi-pencil"></i>
+                                                {/* <i className="bi bi-pencil"></i>
                                                     &nbsp; &nbsp; &nbsp; */}
-                                                <i value={el.id} class="bi bi-trash3" onClick={handleDelete}></i>
+                                                <i value={el.id} className="bi bi-trash3" onClick={handleDelete}></i>
                                             </span>
                                         }
                                     </Card.Header>

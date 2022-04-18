@@ -104,12 +104,12 @@ const UserList = () => {
                 { data?.getUsers && users &&
                     <Row xs={1} md={2} className="g-4">
                         {users.map((el) => (
-                            <Col>
+                            <Col key={el.id}>
                                 <Card>
                                     <Card.Header as="h5">
                                         {el.name}
                                         <span style={{ position: "absolute", right: "10px" }}>
-                                            <i value={el.id} class="bi bi-trash3" onClick={handleDelete}></i>
+                                            <i value={el.id} className="bi bi-trash3" onClick={handleDelete}></i>
                                         </span>
                                     </Card.Header>
                                     <Card.Body>

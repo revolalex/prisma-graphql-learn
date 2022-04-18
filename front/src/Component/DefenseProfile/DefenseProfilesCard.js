@@ -114,14 +114,13 @@ const DefenseProfilesCard = () => {
                     <span>Loading</span>
                 }
                 <br />
-                {data && defenseProfiles &&
+                {data?.getDefenseProfiles && defenseProfiles &&
                     <div>
-                        <Form.Select aria-label="Default select example" onChange={handleSelect}>
+                        <Form.Select aria-label="Default select example" onChange={handleSelect} defaultValue="all">
                             {filterName().map(el =>
                                 <option key={el} value={el}>{el}</option>
                             )}
-                            <option value={"all"}>All</option>
-                            <option defaultValue >Choose a filter</option>
+                            <option  value={"all"}>All</option>
                         </Form.Select>
                         <br />
                         <Row xs={1} md={2} className="g-4">
@@ -134,7 +133,7 @@ const DefenseProfilesCard = () => {
                                                 <span style={{ position: "absolute", right: "10px" }}>
                                                     {/* <i class="bi bi-pencil"></i>
                                                     &nbsp; &nbsp; &nbsp; */}
-                                                    <i value={el.id} class="bi bi-trash3" onClick={handleDelete}></i>
+                                                    <i value={el.id} className="bi bi-trash3" onClick={handleDelete}></i>
                                                 </span>
                                             }
                                         </Card.Header>

@@ -17,7 +17,7 @@ const MyNavbar = () => {
           <Link className='myLink' style={linkStyle} to="/defense-profil">Defense Profil</Link>
           <Link className='myLink' style={linkStyle} to="/risk">Create risk</Link>
           <Link className='myLink' style={linkStyle} to="/post-defense">Create Defense Profil</Link>
-          {userRole === "ADMIN" && <Nav.Link><Link style={linkStyle} to="/users">Users List</Link></Nav.Link>}
+          {userRole === "ADMIN" && <Link style={linkStyle} to="/users">Users List</Link>}
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text style={userInfoStyle}>
