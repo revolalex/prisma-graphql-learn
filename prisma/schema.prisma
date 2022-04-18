@@ -25,7 +25,7 @@ model DefenseProfile {
   id          Int      @id @default(autoincrement())
   name        String
   level       String
-  postedBy    User?    @relation(fields: [postedById], references: [id])
+  postedBy    User?    @relation(fields: [postedById], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postedById  Int?
 }
 
@@ -34,7 +34,7 @@ model Link {
   createdAt   DateTime @default(now())
   description String
   url         String
-  postedBy    User?    @relation(fields: [postedById], references: [id])
+  postedBy    User?    @relation(fields: [postedById], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postedById  Int?
 }
 
@@ -42,6 +42,6 @@ model Risk {
   id          Int      @id @default(autoincrement())
   name        String
   value       Int
-  postedBy    User?    @relation(fields: [postedById], references: [id])
+  postedBy    User?    @relation(fields: [postedById], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postedById  Int?
 }

@@ -104,9 +104,27 @@ const Login = () => {
         });
     }
 
+    const notifyError = (text) => {
+        toast.error(text, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
     // work
     const handleSignInSubmit = (e) => {
         e.preventDefault();
+        if (!email.length) {
+            return notifyError("Please add a email")
+        }
+        if (!password.length) {
+            return notifyError("Please set a password")
+        }
         login({ variables: { email: email, password: password } })
             .then(res => {
                 console.log(res)
@@ -126,6 +144,18 @@ const Login = () => {
     }
     const handleSignUpSubmit = (e) => {
         e.preventDefault();
+        if (!role.length) {
+            return notifyError("Please select a role")
+        }
+        if (!username.length) {
+            return notifyError("Please add a name")
+        }
+        if (!email.length) {
+            return notifyError("Please add a email")
+        }
+        if (!password.length) {
+            return notifyError("Please set a password")
+        }
         signUp({ variables: { name: username, email: email, password: password, role: role } })
             .then(res => {
                 if (res.data.signup.token) {
@@ -179,7 +209,8 @@ const Login = () => {
                         <div className="input-field">
                             <i className="fas fa-user"></i>
                             <select name="role" id="select-role" value={role} onChange={handleRole}>
-                                <option selected="selected" value="ADMIN">ADMIN</option>
+                                <option >Please select a role</option>
+                                <option value="ADMIN">ADMIN</option>
                                 <option value="VIEWER">VIEWER</option>
                                 <option value="STAFF">STAFF</option>
                             </select>
