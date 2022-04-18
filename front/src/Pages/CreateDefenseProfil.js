@@ -1,27 +1,15 @@
 import { Card, Container } from "react-bootstrap";
 import MyNavbar from "../Component/Navbar/MyNabar";
 import { Form, Button } from "react-bootstrap";
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useState } from "react";
 import { toast } from "react-toastify";
 import WaveAnimationComponent from "../Component/Animation/WaveAnimation";
+import { PostDefenseProfiles } from "../Queries/DefenseProfileQueries";
 
 const CreateDefenseProfil = () => {
 
-    const POSTRISK = gql`
-    mutation postDefenseProfile($name: String!, $level: String!) {
-        postDefenseProfile(name:$name, level:$level) {
-            id,
-            name,
-            level,
-            postedBy{
-                name
-            }
-        }
-    }   
-    `;
-
-    const [postRisk] = useMutation(POSTRISK, {
+    const [postRisk] = useMutation(PostDefenseProfiles, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -37,8 +25,11 @@ const CreateDefenseProfil = () => {
         },
     });
 
+    // state
     const [name, setName] = useState("");
     const [level, setLevel] = useState("");
+
+
     const handleName = (e) => {
         setName(e.target.value);
     }

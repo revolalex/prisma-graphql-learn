@@ -1,43 +1,21 @@
 import React from 'react';
 import './Login.css'
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { LoginQuery, SignUpQuery } from '../../Queries/LoginQueries';
 
 
 const Login = () => {
+    // state manage input
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [role, setRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     let navigate = useNavigate();
 
-    const SIGN_UP = gql`
-      mutation signup($name: String!, $password: String!, $email: String!,  $role: String!) {
-        signup(name: $name, password: $password, email: $email, role: $role) {
-          token
-          user {
-              name
-              role
-              id
-          }
-        }
-      }
-    `;
 
-    const LOGIN = gql`
-      mutation login($email: String!, $password: String!){
-        login(email: $email, password: $password) {
-            token
-                user {
-                    id
-                    name
-                    role
-                }
-        }
-    }`;
-
-    const [login] = useMutation(LOGIN, {
+    const [login] = useMutation(LoginQuery, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -52,7 +30,7 @@ const Login = () => {
             });
         },
     });
-    const [signUp] = useMutation(SIGN_UP, {
+    const [signUp] = useMutation(SignUpQuery, {
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
             return toast.error(error, {
@@ -116,7 +94,6 @@ const Login = () => {
         });
     }
 
-    // work
     const handleSignInSubmit = (e) => {
         e.preventDefault();
         if (!email.length) {

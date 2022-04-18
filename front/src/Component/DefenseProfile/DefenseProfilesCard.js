@@ -3,31 +3,31 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import  "./DefenseProfilesCard.css"
+import { GetDefenseProfiles } from "../../Queries/DefenseProfileQueries";
 
 const DefenseProfilesCard = () => {
+    const { loading, data, refetch } = useQuery(GetDefenseProfiles, {
+        onError(err) {
+            const error = `${err}`.split(':').reverse()[0];
+            return toast.error(error, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        },
+    });
 
-    const GETDEFENSEPROFILES = gql`
-    query{
-        getDefenseProfiles{
-            id,
-            name,
-            level,
-            postedBy{
-                id,
-                name,
-                email,
-                role,
-            }
-        }        
-    }`;
-
+    // delete defense profile
     const DELETE_DEF_PROFILE = gql`
     mutation deleteDefenseProfile($id: ID!){
         deleteDefenseProfile(id:$id){
             id,
         }
     }`;
-
 
     const [deleteDefProfile] = useMutation(DELETE_DEF_PROFILE, {
         // handle errors
@@ -45,28 +45,13 @@ const DefenseProfilesCard = () => {
         },
     });
 
-    const { loading, data, refetch } = useQuery(GETDEFENSEPROFILES, {
-        onError(err) {
-            const error = `${err}`.split(':').reverse()[0];
-            return toast.error(error, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        },
-    });
-    const style = { color: 'blue' }
-
+    // state
     const [defenseProfiles, setDefenseProfiles] = useState([]);
 
+    // useEffect
     useEffect(() => {
         refetch()
     },[])
-
     useEffect(() => {
         if (data) { setDefenseProfiles(data?.getDefenseProfiles) }
         ;
@@ -85,6 +70,7 @@ const DefenseProfilesCard = () => {
             setDefenseProfiles(data?.getDefenseProfiles.filter(el => el.postedBy?.name === e.target.value))
         }
     }
+
     const notify = (text) => {
         toast.success(text, {
             position: "top-center",
@@ -108,7 +94,10 @@ const DefenseProfilesCard = () => {
             }
         })
     }
+
+    const style = { color: 'blue' }
     const userId = localStorage.getItem('userId');
+
     return (
         <div>
             <Container style={{ width: "70%", margin: "auto" }}>

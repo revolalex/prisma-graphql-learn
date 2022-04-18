@@ -5,21 +5,11 @@ import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
 import { toast } from "react-toastify";
 import WaveAnimationComponent from "../Component/Animation/WaveAnimation";
+import  {PostRisk}  from "../Queries/RiskQuerie.js";
 
 const CreateRisk = () => {
-    const POSTRISK = gql`
-      mutation postRisk($name: String!, $value: Int!) {
-        postRisk(name: $name, value: $value) {
-          name,
-          value,
-          postedBy {
-            id,
-            name,
-          }
-        }
-      }
-    `;
-    const [postRisk] = useMutation(POSTRISK, {
+
+    const [postRisk] = useMutation(PostRisk, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -35,6 +25,7 @@ const CreateRisk = () => {
         },
     });
 
+    // state
     const [name, setName] = useState("");
     const [value, setValue] = useState("");
 

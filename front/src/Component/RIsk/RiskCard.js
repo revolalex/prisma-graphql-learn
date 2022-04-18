@@ -1,19 +1,11 @@
 import { Card, Row, Col, Container, Form, OverlayTrigger, Tooltip } from "react-bootstrap"
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import { GetRisks, DeleteRisk } from "../../Queries/RiskQuerie";
 
 const RiskCard = () => {
-    const GETRISKS = gql`
-    query{
-        getRisks{
-            id,
-            name,
-            value, 
-            postedBy{id,name,email}
-        }
-    }`;
-    const { loading, data, refetch } = useQuery(GETRISKS, {
+    const { loading, data, refetch } = useQuery(GetRisks, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -30,14 +22,7 @@ const RiskCard = () => {
 
     });
 
-    const DELETE_RISK = gql`
-    mutation deleteRisk($id: ID!){
-        deleteRisk(id:$id){
-            id,
-        }
-    }`;
-
-    const [deleteRisk] = useMutation(DELETE_RISK, {
+    const [deleteRisk] = useMutation(DeleteRisk, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -53,10 +38,10 @@ const RiskCard = () => {
         },
     });
 
-    const style = { color: 'blue' }
-
+    // state
     const [risks, setRisks] = useState([]);
 
+    // uesEffect
     useEffect(() => {
         if (data) { setRisks(data?.getRisks) }
     }, [data])
@@ -65,6 +50,7 @@ const RiskCard = () => {
         refetch()
     },[])
 
+    // filter the name of owner risk
     const filterName = () => {
         const names = data?.getRisks.map(el => el.postedBy.name)
         const uniqueChars = [...new Set(names)];
@@ -80,6 +66,7 @@ const RiskCard = () => {
         }
     }
 
+    // popup toast
     const notify = (text) => {
         toast.success(text, {
             position: "top-center",
@@ -92,6 +79,7 @@ const RiskCard = () => {
         });
     }
 
+    // delete risk
     const handleDelete = (e) => {
         const id = e.target.attributes.value.value
         deleteRisk({ variables: { id } }).then((res) => {
@@ -101,7 +89,10 @@ const RiskCard = () => {
             }
         })
     }
+
+    const style = { color: 'blue' }
     const userId = localStorage.getItem('userId')
+
     return (
         <div style={{ paddingBottom: "100px" }}>
             <Container style={{ width: "70%", margin: "auto" }}>

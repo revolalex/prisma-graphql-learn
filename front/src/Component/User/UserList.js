@@ -3,29 +3,12 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import './UserList.css'
+import { DeleteUser, GetUsers } from "../../Queries/UserQueries";
 
 
 const UserList = () => {
-    const GETUSERS = gql`
-    query{
-        getUsers{
-            id,
-            name,
-            email,
-            role,
-            risk{id}
 
-        }
-    }`;
-
-    const DELETE_USER = gql`
-    mutation deleteUser($id: ID!){
-        deleteUser(id:$id){
-            id,
-        }
-    }`;
-
-    const [deleteUser] = useMutation(DELETE_USER, {
+    const [deleteUser] = useMutation(DeleteUser, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -41,7 +24,7 @@ const UserList = () => {
         },
     });
 
-    const { loading, data, refetch } = useQuery(GETUSERS, {
+    const { loading, data, refetch } = useQuery(GetUsers, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -58,9 +41,10 @@ const UserList = () => {
 
     });
 
-
+    // state
     const [users, setUsers] = useState();
 
+    // useEffect
     useEffect(() => {
         if (data) { setUsers(data?.getUsers) }
     }, [data])
@@ -80,7 +64,6 @@ const UserList = () => {
             progress: undefined,
         });
     }
-
 
     const handleDelete = (e) => {
         const id = e.target.attributes.value.value
@@ -129,10 +112,6 @@ const UserList = () => {
                                         </p>
                                     </div>
                                 </div>
-
-
-
-
                                 {/* <Card>
                                     <Card.Header as="h5">
                                         {el.name}

@@ -7,20 +7,23 @@ const MyNavbar = () => {
   const userName = localStorage.getItem("userName")
   const id = localStorage.getItem("userId")
   const linkStyle = { color: "rgb(13, 200, 249)", textDecoration: "none" }
-  const userInfoStyle = { color: "rgb(40 240 191)"}
+  const userInfoStyle = { color: "rgb(40 240 191)" }
   const userRole = localStorage.getItem('role');
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
         <Nav className="me-auto">
+          {/* Links */}
           <Link className='myLink' style={linkStyle} to="/risks">Risks</Link>
           <Link className='myLink' style={linkStyle} to="/defense-profil">Defense</Link>
           <Link className='myLink' style={linkStyle} to="/risk">Create risk</Link>
           <Link className='myLink' style={linkStyle} to="/post-defense">Create Defense</Link>
+          {/* Only display if user role is ADMIN */}
           {userRole === "ADMIN" &&
             <Link className='myLink' style={linkStyle} to="/users">Users List</Link>
           }
         </Nav>
+        {/* User Info */}
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text style={userInfoStyle}>
             Name: {userName}
