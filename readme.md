@@ -328,7 +328,7 @@ Create a Permissions folder then a index.js file inside
 
 ```js
 const {  shield, rule, and, or  } = require('graphql-shield');
-const { isAdmin, isStaf } = require('./rules');
+const { isAdmin, isOwner } = require('./rules');
 // and - allows access only if all sub rules used return true,
 // or - resolves to true if at least one rule passes,
 
