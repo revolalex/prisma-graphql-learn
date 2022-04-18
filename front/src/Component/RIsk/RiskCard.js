@@ -122,7 +122,7 @@ const RiskCard = () => {
                     <Row xs={1} md={2} className="g-4">
                         {risks.map((el) => (
                             <Col key={el.id}>
-                                <Card>
+                                <Card className="my-card">
                                     <Card.Header as="h5">
                                         {el.name}
                                         <span style={{ position: "absolute", right: "10px" }}>

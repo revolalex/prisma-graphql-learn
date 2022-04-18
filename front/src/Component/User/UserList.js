@@ -1,7 +1,9 @@
-import { Card, Row, Col, Container } from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import './UserList.css'
+
 
 const UserList = () => {
     const GETUSERS = gql`
@@ -23,7 +25,7 @@ const UserList = () => {
         }
     }`;
 
-    const [deleteUser] = useMutation(DELETE_USER , {
+    const [deleteUser] = useMutation(DELETE_USER, {
         // handle errors
         onError(err) {
             const error = `${err}`.split(':').reverse()[0];
@@ -102,11 +104,36 @@ const UserList = () => {
                 <br />
                 <h1 style={{ textAlign: "center", color: "white" }}>Users List</h1>
                 <br />
-                { data?.getUsers && users &&
+                {data?.getUsers && users &&
                     <Row xs={1} md={2} className="g-4">
+                        <br />
+                        <br />
                         {users.map((el) => (
                             <Col key={el.id}>
-                                <Card>
+                                <div class="user-card">
+                                    <img src="https://www.nautec.com/wp-content/uploads/2018/04/placeholder-person.png" alt="" />
+                                    <h2>Name: {el.name}
+                                        <span style={{ marginLeft: "50px", cursor: "pointer" }}>
+                                            <i value={el.id} className="bi bi-trash3" onClick={handleDelete}></i>
+                                        </span>                                      
+                                    </h2>
+                                    <div class="cont">
+                                        <p>
+                                            User Id: <span style={style}>{el.id}</span>
+                                            <br />
+                                            User Role: <span style={style}>{el.role}</span>
+                                            <br />
+                                            User Role: <span style={style}>{el.role}</span>
+                                            <br />
+                                            @ <span style={style}>{el.email}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+
+                                {/* <Card>
                                     <Card.Header as="h5">
                                         {el.name}
                                         <span style={{ position: "absolute", right: "10px" }}>
@@ -125,7 +152,7 @@ const UserList = () => {
                                         </Card.Text>
                                         <Card.Link href="#">{el.email}</Card.Link>
                                     </Card.Body>
-                                </Card>
+                                </Card> */}
                             </Col>
                         ))}
                     </Row>

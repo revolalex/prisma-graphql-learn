@@ -5,7 +5,7 @@ import MyNavbar from "../Component/Navbar/MyNabar";
 
 const Users = () => {
     return (
-        <div className="container-login-custom ">
+        <div className="container-global-custom" style={{ minHeight: "100vh" }}>
             <WaveAnimationComponent/>
             <MyNavbar />
             <UserList/>

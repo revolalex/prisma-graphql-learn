@@ -2,6 +2,7 @@ import { Card, Row, Col, Container, Form, OverlayTrigger, Tooltip } from "react-
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import  "./DefenseProfilesCard.css"
 
 const DefenseProfilesCard = () => {
 
@@ -130,7 +131,7 @@ const DefenseProfilesCard = () => {
                         <Row xs={1} md={2} className="g-4">
                             {defenseProfiles.map((el) => (
                                 <Col key={el.id}>
-                                    <Card>
+                                    <Card className="my-card">
                                         <Card.Header as="h5">
                                             {el.name}
                                             <span style={{ position: "absolute", right: "10px" }}>
