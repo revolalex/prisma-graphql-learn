@@ -448,9 +448,12 @@ Prisma studio to visualize the DB => http://localhost:5555
 - prisma
 - appollo-server
 - jwt
+- permissions
+- middleware
 - node
 - bootstrap
 - toastify
+- etc...
  
  
 ## Status
